@@ -40,6 +40,15 @@ const Question = () => {
     setIsSubmitting(true);
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    try {
+      // make an async call to your api -> create a new Question
+      // contain form data
+      // navigate to home page
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsSubmitting(false);
+    }
     console.log(values);
   }
 
