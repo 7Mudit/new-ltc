@@ -20,10 +20,19 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
+import { Router } from "lucide-react";
 
 const type: any = "create";
 
-const Question = () => {
+interface Props {
+  mongoUserId: string;
+}
+
+const Question = ({ mongoUserId }: Props) => {
+  const router = useRouter();
+  // const pathname = usePathname();
+
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   // 1. Define your form.
@@ -46,7 +55,13 @@ const Question = () => {
       // contain form data
       // navigate to home page
 
-      await createQuestion();
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+      });
+      router.push("/");
     } catch (err) {
       console.log(err);
     } finally {

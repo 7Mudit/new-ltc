@@ -11,7 +11,9 @@ export const connectToDb = async () => {
     return console.log("Mongodb is already connected");
   }
   try {
-    await mongoose.connect(process.env.MONGODB_URL);
+    await mongoose.connect(process.env.MONGODB_URL, {
+      dbName: "next-ltc",
+    });
     isConnected = true;
     console.log("Mongodb is connected");
   } catch (e) {
