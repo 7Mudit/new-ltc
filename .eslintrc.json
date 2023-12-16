@@ -1,14 +1,20 @@
+// "rules": {
+//   // ... other rules ...
+//   "tailwindcss/classnames-order": "warn",
+//   "tailwindcss/no-custom-classname": "off", // Turn off the rule that disallows custom class names
+//   "tailwindcss/no-contradicting-classname": "error"
+// },
 {
-  // "rules": {
-  //   // ... other rules ...
-  //   "tailwindcss/classnames-order": "warn",
-  //   "tailwindcss/no-custom-classname": "off", // Turn off the rule that disallows custom class names
-  //   "tailwindcss/no-contradicting-classname": "error"
-  // },
   "extends": [
     "next/core-web-vitals",
     "standard",
     "plugin:tailwindcss/recommended",
     "prettier"
-  ]
+  ],
+  "plugins": ["tailwindcss"],
+  "settings": {
+    "tailwindcss": {
+      "config": "learn-to-code/tailwind.config.ts"
+    }
+  }
 }
