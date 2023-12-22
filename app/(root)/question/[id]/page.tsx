@@ -9,6 +9,7 @@ import Link from "next/link";
 import React from "react";
 import { auth } from "@clerk/nextjs";
 import { getUserById } from "@/lib/actions/user.action";
+import AllAnswers from "@/components/shared/AllAnswers";
 
 const Page = async ({ params }) => {
   const result = await getQuestionById({ questionId: params.id });
@@ -78,6 +79,11 @@ const Page = async ({ params }) => {
           />
         ))}
       </div>
+      <AllAnswers
+        questionId={result._id}
+        userId={JSON.stringify(mongoUser._id)}
+        totalAnswers={result.answers.length}
+      />
       <Answer
         question={result.content}
         questionId={JSON.stringify(result._id)}
