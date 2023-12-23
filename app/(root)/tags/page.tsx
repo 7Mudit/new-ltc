@@ -8,7 +8,6 @@ import Link from "next/link";
 
 const Page = async () => {
   const result = await getAllTags({});
-
   return (
     <>
       <h1 className="h1-bold text-dark100_light900 ">All Tags</h1>
