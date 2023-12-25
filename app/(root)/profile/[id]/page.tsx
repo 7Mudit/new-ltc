@@ -1,3 +1,4 @@
+import AnswersTab from "@/components/shared/AnswersTab";
 import ProfileLink from "@/components/shared/ProfileLink";
 import QuestionTab from "@/components/shared/QuestionTab";
 import Stats from "@/components/shared/Stats";
@@ -76,6 +77,8 @@ const Page = async ({ params, searchParams }: URLProps) => {
       <Stats
         totalQuestions={userInfo?.totalQuestions}
         totalAnswers={userInfo?.totalAnswers}
+        badges={userInfo?.user.badges}
+        reputation={userInfo?.user.reputation}
       />
       <div className="mt-10 flex gap-10">
         <Tabs defaultValue="top-posts" className="flex-1">
@@ -98,11 +101,11 @@ const Page = async ({ params, searchParams }: URLProps) => {
             />
           </TabsContent>
           <TabsContent value="answers" className="flex w-full flex-col gap-6">
-            {/* <AnswersTab 
+            <AnswersTab
               searchParams={searchParams}
               userId={userInfo?.user._id}
               clerkId={clerkId}
-            /> */}
+            />
           </TabsContent>
         </Tabs>
       </div>
