@@ -6,6 +6,8 @@ import Tag from "@/database/tag.model";
 import {
   AnswerVoteParams,
   CreateQuestionParams,
+  DeleteAnswerParams,
+  DeleteQuestionParams,
   GetQuestionByIdParams,
   GetQuestionsParams,
   QuestionVoteParams,
@@ -13,6 +15,7 @@ import {
 import User from "@/database/user.model";
 import { revalidatePath } from "next/cache";
 import Answer from "@/database/answer.model";
+import Interaction from "@/database/interaction.model";
 
 export async function getQuestions(params: GetQuestionsParams) {
   try {
@@ -207,6 +210,25 @@ export async function downvoteAnswer(params: AnswerVoteParams) {
     if (!answer) throw new Error("Answer not found");
 
     // increment author's reputation +10 points for creating a question
+
+    revalidatePath(path);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function deleteQuestion(params: DeleteQuestionParams) {
+  try {
+    connectToDb();
+    const { questionId, path } = params;
+
+    await Question.deleteOne({ _id: questionId });
+    await Answer.deleteMany({ question: questionId });
+    await Interaction.deleteMany({ question: questionId });
+    await Tag.updateMany(
+      { questions: questionId },
+      { $pull: { questions: questionId } }
+    );
 
     revalidatePath(path);
   } catch (err) {
