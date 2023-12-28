@@ -254,3 +254,16 @@ export async function editQuestion(params: EditQuestionParams) {
     console.log(err);
   }
 }
+export async function getHotQuestions() {
+  try {
+    connectToDb();
+
+    const questions = await Question.find({})
+      .sort({ views: -1, upvotes: -1 })
+      .limit(5);
+
+    return questions;
+  } catch (err) {
+    console.log(err);
+  }
+}

@@ -2,30 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import RenderTags from "./RenderTags";
+import { getHotQuestions } from "@/lib/actions/question.action";
+import { getHotTags } from "@/lib/actions/tag.actions";
 
-const RightSidebar = () => {
-  const hotQuestions: any = [
-    { _id: 1, title: "How do I use a custome server component ? " },
-    { _id: 2, title: "How do I use a custome server component ? " },
-    { _id: 3, title: "How do I use a custome server component ? " },
-    { _id: 4, title: "How do I use a custome server component ? " },
-    { _id: 5, title: "How do I use a custome server component ? " },
-  ];
-  const popularTags: any = [
-    { _id: 1, name: "Javascript", totalQuestions: 5 },
-    { _id: 2, name: "React", totalQuestions: 50 },
-    { _id: 3, name: "Next", totalQuestions: 35 },
-    { _id: 4, name: "Java", totalQuestions: 25 },
-    { _id: 5, name: "Django", totalQuestions: 15 },
-  ];
+const RightSidebar = async () => {
+  const popularTags = await getHotTags();
+  const hotQuestions = await getHotQuestions();
   return (
-    <section className="background-light900_dark200 light-border custom-scrollbar shadow-light-300 sticky right-0 top-0 flex h-screen w-[350px] flex-col overflow-y-auto border-l p-6 pt-36 dark:shadow-none max-xl:hidden">
+    <section className="background-light900_dark200 light-border custom-scrollbar sticky right-0 top-0 flex h-screen w-[350px] flex-col overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden">
       <div className="">
         <h3 className="h3-bold text-dark200_light900 ">Top Questions</h3>
         <div className="mt-7 flex w-full flex-col gap-[30px] ">
           {hotQuestions.map((question: any) => (
             <Link
-              href={`/questions/${question.id}`}
+              href={`/question/${question.id}`}
               key={question._id}
               className="flex cursor-pointer items-center justify-between gap-7"
             >
@@ -49,7 +39,7 @@ const RightSidebar = () => {
           {popularTags.map((tag: any) => (
             <RenderTags
               name={tag.name}
-              totalQuestions={tag.totalQuestions}
+              totalQuestions={tag.numberOfQuestions}
               key={tag._id}
               _id={tag._id}
               showCount
