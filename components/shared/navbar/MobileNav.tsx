@@ -28,7 +28,7 @@ const NavContent = () => {
               href={item.route}
               className={`${
                 isActive
-                  ? "primary-gradient text-light-900 rounded-lg"
+                  ? "primary-gradient rounded-lg text-light-900"
                   : "text-dark300_light900"
               } flex items-center justify-start gap-4 bg-transparent p-4`}
             >
@@ -73,7 +73,7 @@ const MobileNav = () => {
             height={23}
             alt="Learn To Code"
           />
-          <p className="h2-bold  font-spaceGrotesk text-dark100_light900">
+          <p className="h2-bold  text-dark100_light900 font-spaceGrotesk">
             Learn <span className="text-primary-500">To Code</span>
           </p>
         </Link>
