@@ -6,14 +6,15 @@ import { QuestionFilters } from "@/constants/Filters";
 import { getSavedQuestions } from "@/lib/actions/user.action";
 import React from "react";
 import { auth } from "@clerk/nextjs";
+import { SearchParamsProps } from "@/types";
 
-const Home = async () => {
+const Page = async ({ searchParams }: SearchParamsProps) => {
   const { userId } = auth();
   if (!userId) return null;
   const result = await getSavedQuestions({
     clerkId: userId,
+    searchQuery: searchParams.q,
   });
-  console.log(result?.questions);
   return (
     <>
       <h1 className="h1-bold text-dark100_light900 ">Saved Questions</h1>
@@ -34,7 +35,7 @@ const Home = async () => {
 
       <div className="mt-10 flex w-full flex-col gap-6 ">
         {result && result.questions.length > 0 ? (
-          result.questions.map((question) => (
+          result.questions.map((question: any) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
@@ -60,4 +61,4 @@ const Home = async () => {
   );
 };
 
-export default Home;
+export default Page;
