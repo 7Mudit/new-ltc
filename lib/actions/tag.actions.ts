@@ -15,7 +15,7 @@ export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {
     connectToDb();
 
-    const { userId, limit = 3 } = params;
+    const { userId } = params;
     const user = await User.findById(userId);
 
     if (!user) {

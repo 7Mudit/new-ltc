@@ -1,6 +1,6 @@
 import React from "react";
 import Filter from "./Filter";
-import { AnswerFilters } from "@/constants/Filters";
+
 import { getAnswers } from "@/lib/actions/answer.action";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,6 +8,7 @@ import { getTimestamp } from "@/lib/utils";
 import ParseHTML from "./ParseHTML";
 import Votes from "./Votes";
 import Pagination from "./Pagination";
+import { AnswerFilters } from "@/constants/Filters";
 
 interface Props {
   questionId: string;
@@ -29,12 +30,15 @@ const AllAnswers = async ({
     page: page ? +page : 1,
     sortBy: filter,
   });
+
   return (
-    <div className="mt-11 ">
+    <div className="mt-11">
       <div className="flex items-center justify-between">
-        <h3 className="primary-text-gradient ">{totalAnswers} Answers</h3>
+        <h3 className="primary-text-gradient">{totalAnswers} Answers</h3>
+
         <Filter filters={AnswerFilters} />
       </div>
+
       <div>
         {result.answers.map((answer) => (
           <article key={answer._id} className="light-border border-b py-10">
@@ -66,8 +70,8 @@ const AllAnswers = async ({
                   itemId={JSON.stringify(answer._id)}
                   userId={JSON.stringify(userId)}
                   upvotes={answer.upvotes.length}
-                  downvotes={answer.downvotes.length}
                   hasupVoted={answer.upvotes.includes(userId)}
+                  downvotes={answer.downvotes.length}
                   hasdownVoted={answer.downvotes.includes(userId)}
                 />
               </div>
@@ -76,7 +80,8 @@ const AllAnswers = async ({
           </article>
         ))}
       </div>
-      <div className="mt-10">
+
+      <div className="mt-10 w-full">
         <Pagination pageNumber={page ? +page : 1} isNext={result.isNext} />
       </div>
     </div>
