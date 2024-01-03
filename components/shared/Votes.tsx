@@ -1,9 +1,8 @@
 "use client";
+import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
 import { viewQuestion } from "@/lib/actions/interaction.action";
 import {
-  downvoteAnswer,
   downvoteQuestion,
-  upvoteAnswer,
   upvoteQuestion,
 } from "@/lib/actions/question.action";
 import { toggleSaveQuestion } from "@/lib/actions/user.action";
