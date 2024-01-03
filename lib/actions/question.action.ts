@@ -6,7 +6,6 @@ import Tag from "@/database/tag.model";
 import {
   AnswerVoteParams,
   CreateQuestionParams,
-  DeleteAnswerParams,
   DeleteQuestionParams,
   EditQuestionParams,
   GetQuestionByIdParams,
@@ -92,8 +91,16 @@ export async function createQuestion(params: CreateQuestionParams) {
     });
 
     // create an interaction record for the users ask question action
+    await Interaction.create({
+      user: author,
+      action: "ask_question",
+      question: question._id,
+      tags: tagDocuments,
+    });
     // increment author's reputation +5 points for creating a question
-
+    await User.findByIdAndUpdate(author, {
+      $inc: { reputation: 5 },
+    });
     revalidatePath(path);
   } catch (err) {
     console.log(err);
@@ -145,8 +152,14 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
     });
     if (!question) throw new Error("Question not found");
 
-    // increment author's reputation +10 points for creating a question
+    // increment author's reputation +10 points
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasupVoted ? -1 : +1 },
+    });
 
+    await User.findByIdAndUpdate(question.author, {
+      $inc: { reputation: hasupVoted ? -10 : +10 },
+    });
     revalidatePath(path);
   } catch (err) {
     console.log(err);
