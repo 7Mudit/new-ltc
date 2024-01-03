@@ -229,7 +229,7 @@ export async function getUserInfo(params: GetUserByIdParams) {
     connectToDb();
 
     const { userId } = params;
-
+    // wrong on github
     const user = await User.findOne({ clerkId: userId });
 
     if (!user) {
