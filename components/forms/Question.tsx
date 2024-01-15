@@ -182,10 +182,14 @@ const Question = ({ type, questionDetails, mongoUserId }: Props) => {
                       "insertdatetime",
                       "media",
                       "table",
+                      "emoticons",
                     ],
                     toolbar:
                       "undo redo | " +
+                      "| blocks fontfamily fontsize |" +
                       "codesample | bold italic forecolor | alignleft aligncenter |" +
+                      "| link image media table |" +
+                      "| emoticons charmap |" +
                       "alignright alignjustify | bullist numlist",
                     content_style: "body { font-family:Inter; font-size:16px }",
                     skin: mode === "dark" ? "oxide-dark" : "oxide",
